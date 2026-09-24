@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kunci Pintas Office</title>
+<style>
+:root{--bg:#eef1f5;--card:#fff;--ink:#1b2430;--mute:#5c6878;--line:#d9dfe7;--key:#f6f8fb;--keyb:#b9c2cf;--acc:#1f6f4a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171e;--card:#1b222b;--ink:#e8edf3;--mute:#93a0b2;--line:#2c3541;--key:#252e39;--keyb:#3d4958}}
+:root[data-theme="dark"]{--bg:#12171e;--card:#1b222b;--ink:#e8edf3;--mute:#93a0b2;--line:#2c3541;--key:#252e39;--keyb:#3d4958}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{max-width:820px;margin:0 auto;padding:22px 16px 8px}
+h1{margin:0 0 4px;font-size:1.6rem;letter-spacing:-.02em}
+header p{margin:0;color:var(--mute);font-size:.95rem}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 16px;max-width:820px;margin:0 auto}
+input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:inherit}
+input:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 0 2px;scrollbar-width:none}
+.tabs button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 14px;border-radius:999px;font:inherit;font-size:.9rem;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff}
+main{max-width:820px;margin:0 auto;padding:6px 16px 40px}
+.grp{margin:18px 0 6px;font-weight:650;font-size:.95rem;color:var(--mute)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-top:0;padding:10px 12px}
+.row:first-of-type{border-top:1px solid var(--line);border-radius:10px 10px 0 0}
+.row:last-of-type{border-radius:0 0 10px 10px}
+.row:only-of-type{border-radius:10px;border-top:1px solid var(--line)}
+.ks{display:flex;gap:4px;flex-wrap:wrap;flex:none;max-width:52%}
+kbd{font:600 .8rem/1 ui-monospace,Menlo,Consolas,monospace;background:var(--key);border:1px solid var(--keyb);border-bottom-width:3px;border-radius:6px;padding:6px 8px;color:var(--ink)}
+.d{font-size:.92rem;text-align:right}
+.tag{display:inline-block;font-size:.72rem;color:#fff;background:var(--c);border-radius:4px;padding:1px 6px;margin-right:6px;vertical-align:1px}
+.fm{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin:0 0 8px;color:var(--ink);font:inherit;cursor:pointer}
+.fm code{display:block;font:600 .88rem/1.4 ui-monospace,Menlo,Consolas,monospace;color:var(--acc);word-break:break-all}
+.fm span{display:block;font-size:.88rem;color:var(--mute);margin-top:2px}
+.note{font-size:.85rem;color:var(--mute);margin:10px 0}
+.none{color:var(--mute);text-align:center;padding:40px 0}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:8px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header>
+<h1>Kunci Pintas Office</h1>
+<p>Shortcut Excel, Word, PowerPoint, dan rumus Excel. Untuk Windows.</p>
+</header>
+<div class="bar">
+<input id="q" type="search" placeholder="Cari, misalnya: salin, filter, VLOOKUP" aria-label="Cari">
+<div class="tabs" id="tabs"></div>
+</div>
+<main id="out"></main>
+<div id="toast" role="status"></div>
+<script>
+var T=[
+{id:"umum",n:"Umum",c:"#4b5a6e"},
+{id:"excel",n:"Excel",c:"#1f7a4d"},
+{id:"word",n:"Word",c:"#2b5fb3"},
+{id:"ppt",n:"PowerPoint",c:"#c2492b"},
+{id:"rumus",n:"Rumus Excel",c:"#17695f"}
+];
+var D={
+umum:[["Dasar",[
+["Ctrl C","Salin"],["Ctrl X","Potong"],["Ctrl V","Tempel"],["Ctrl Z","Batalkan"],["Ctrl Y","Ulangi"],
+["Ctrl S","Simpan"],["Ctrl A","Pilih semua"],["Ctrl F","Cari"],["Ctrl P","Cetak"],["Ctrl N","Dokumen baru"],["Ctrl O","Buka file"]]],
+["Format teks",[
+["Ctrl B","Tebal"],["Ctrl I","Miring"],["Ctrl U","Garis bawah"]]],
+["Windows",[
+["Alt Tab","Pindah aplikasi"],["Win D","Tampilkan desktop"],["Win V","Riwayat clipboard"],["Win Shift S","Tangkapan layar"],["Win E","Buka File Explorer"]]]],
+excel:[["Navigasi & pilih",[
+["Ctrl Panah","Loncat ke ujung data"],["Ctrl Shift Panah","Pilih sampai ujung data"],["Ctrl Home","Ke sel A1"],["Ctrl End","Ke sel terakhir yang dipakai"],
+["Ctrl Spasi","Pilih satu kolom"],["Shift Spasi","Pilih satu baris"],["Ctrl PageDown","Sheet berikutnya"],["Ctrl PageUp","Sheet sebelumnya"],["Shift F11","Sheet baru"]]],
+["Edit sel",[
+["F2","Edit isi sel"],["Alt Enter","Baris baru dalam sel"],["Ctrl Enter","Isi semua sel terpilih"],["Ctrl D","Salin ke bawah"],["Ctrl R","Salin ke kanan"],
+["F4","Kunci referensi ($) / ulangi aksi"],["Ctrl ;","Tanggal hari ini"],["Ctrl Shift ;","Jam sekarang"],["Ctrl `","Tampilkan semua rumus"]]],
+["Format & data",[
+["Ctrl 1","Format sel"],["Ctrl Shift %","Format persen"],["Ctrl Shift $","Format mata uang"],["Ctrl Shift L","Nyalakan filter"],["Ctrl T","Ubah jadi tabel"],
+["Alt =","Jumlahkan otomatis (AutoSum)"],["Ctrl 9","Sembunyikan baris"],["Ctrl 0","Sembunyikan kolom"]]]],
+word:[["Paragraf",[
+["Ctrl L","Rata kiri"],["Ctrl E","Rata tengah"],["Ctrl R","Rata kanan"],["Ctrl J","Rata kiri-kanan"],["Ctrl Alt 1","Heading 1"],["Ctrl Alt 2","Heading 2"]]],
+["Teks",[
+["Ctrl ]","Perbesar font"],["Ctrl [","Perkecil font"],["Shift F3","Ganti huruf besar/kecil"],["Ctrl Backspace","Hapus satu kata"],["Ctrl Shift C","Salin format"],["Ctrl Shift V","Tempel format"]]],
+["Dokumen",[
+["Ctrl Enter","Page break"],["Ctrl K","Sisipkan tautan"],["Ctrl H","Cari dan ganti"],["Ctrl G","Loncat ke halaman"],["F7","Cek ejaan"],
+["Ctrl Alt M","Sisipkan komentar"],["Ctrl Shift E","Lacak perubahan"],["Ctrl Home","Ke awal dokumen"]]]],
+ppt:[["Presentasi",[
+["F5","Presentasi dari awal"],["Shift F5","Presentasi dari slide ini"],["Alt F5","Mode presenter"],["B","Layar hitam (saat presentasi)"],["W","Layar putih (saat presentasi)"],["Esc","Keluar presentasi"]]],
+["Slide & objek",[
+["Ctrl M","Slide baru"],["Ctrl D","Duplikat slide / objek"],["Ctrl G","Kelompokkan objek"],["Ctrl Shift G","Pisahkan kelompok"],
+["F4","Ulangi aksi terakhir"],["Ctrl Shift C","Salin format"],["Ctrl Shift V","Tempel format"],["Ctrl Enter","Pindah ke kotak teks berikutnya"]]]]
+};
+var R=[
+["=SUM(A1:A10)","Jumlahkan angka dalam rentang"],["=AVERAGE(A1:A10)","Rata-rata"],["=MAX(A1:A10)","Nilai terbesar (MIN untuk terkecil)"],
+["=COUNT(A1:A10)","Hitung sel berisi angka"],["=COUNTA(A1:A10)","Hitung sel yang tidak kosong"],
+["=IF(A1>=70,\"Lulus\",\"Remedial\")","Kondisi ya/tidak"],["=IFS(A1>=90,\"A\",A1>=80,\"B\",TRUE,\"C\")","Beberapa kondisi sekaligus"],
+["=SUMIF(A:A,\"Apel\",B:B)","Jumlahkan jika kriteria cocok"],["=COUNTIF(A:A,\"Apel\")","Hitung jika kriteria cocok"],["=AVERAGEIF(A:A,\"Apel\",B:B)","Rata-rata jika kriteria cocok"],
+["=VLOOKUP(E1,A:C,2,FALSE)","Cari nilai di kolom pertama, ambil kolom ke-2"],["=XLOOKUP(E1,A:A,B:B)","Pencarian modern, bisa ke kiri atau kanan"],
+["=INDEX(B:B,MATCH(E1,A:A,0))","Alternatif VLOOKUP yang lebih fleksibel"],["=IFERROR(A1/B1,0)","Ganti error dengan nilai lain"],
+["=CONCAT(A1,\" \",B1)","Gabungkan teks"],["=TEXTJOIN(\", \",TRUE,A1:A5)","Gabungkan banyak sel dengan pemisah"],
+["=LEFT(A1,3)","Ambil 3 karakter dari kiri (RIGHT dari kanan)"],["=MID(A1,2,4)","Ambil 4 karakter mulai posisi 2"],["=LEN(A1)","Hitung jumlah karakter"],
+["=TRIM(A1)","Hapus spasi berlebih"],["=UPPER(A1)","Huruf besar (LOWER kecil, PROPER kapital awal kata)"],
+["=TODAY()","Tanggal hari ini"],["=NOW()","Tanggal dan jam sekarang"],["=DATEDIF(A1,B1,\"Y\")","Selisih tahun (M bulan, D hari)"],
+["=ROUND(A1,2)","Bulatkan ke 2 desimal"],["=TEXT(A1,\"dd/mm/yyyy\")","Ubah angka/tanggal jadi teks berformat"],
+["=UNIQUE(A1:A20)","Daftar nilai unik"],["=FILTER(A1:C20,C1:C20>100)","Tampilkan baris yang memenuhi syarat"],["=SORT(A1:B20,2,-1)","Urutkan (2 = kolom ke-2, -1 = menurun)"]
+];
+var cur="umum",q=document.getElementById("q"),out=document.getElementById("out"),tabs=document.getElementById("tabs");
+function tabOf(id){return T.filter(function(t){return t.id===id})[0]}
+function keys(s){return s.split(" ").map(function(k){var e=document.createElement("kbd");e.textContent=k;return e})}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function toast(m){var t=document.getElementById("toast");t.textContent=m;t.className="on";setTimeout(function(){t.className=""},1400)}
+function copy(txt){
+  function fb(){var a=document.createElement("textarea");a.value=txt;document.body.appendChild(a);a.select();try{document.execCommand("copy");toast("Rumus disalin")}catch(e){toast("Tekan lama untuk menyalin")}a.remove()}
+  try{navigator.clipboard.writeText(txt).then(function(){toast("Rumus disalin")},fb)}catch(e){fb()}
+}
+function formula(f,tag){
+  var b=el("button","fm");b.type="button";b.style.setProperty("--c",tabOf("rumus").c);
+  var c=el("code",null,f[0]);var s=el("span",null,f[1]);b.appendChild(c);b.appendChild(s);
+  b.onclick=function(){copy(f[0])};return b;
+}
+function render(){
+  var s=q.value.trim().toLowerCase();out.textContent="";var n=0;
+  T.forEach(function(t){
+    if(!s&&t.id!==cur)return;
+    if(t.id==="rumus"){
+      var fs=R.filter(function(f){return !s||(f[0]+f[1]).toLowerCase().indexOf(s)>-1});
+      if(!fs.length)return;
+      out.appendChild(el("div","grp",s?"Rumus Excel":"Ketuk rumus untuk menyalin"));
+      fs.forEach(function(f){out.appendChild(formula(f));n++});
+      if(!s)out.appendChild(el("p","note","Jika Excel kamu memakai titik koma sebagai pemisah, ganti tanda koma (,) dengan titik koma (;)."));
+      return;
+    }
+    D[t.id].forEach(function(g){
+      var rows=g[1].filter(function(r){return !s||(r[0]+" "+r[1]+" "+g[0]).toLowerCase().indexOf(s)>-1});
+      if(!rows.length)return;
+      out.appendChild(el("div","grp",s?t.n+" · "+g[0]:g[0]));
+      var w=el("div");
+      rows.forEach(function(r){
+        var row=el("div","row");row.style.setProperty("--c",t.c);
+        var k=el("div","ks");keys(r[0]).forEach(function(e){k.appendChild(e)});
+        var d=el("div","d");
+        if(s){var tg=el("span","tag",t.n);tg.style.setProperty("--c",t.c);d.appendChild(tg)}
+        d.appendChild(document.createTextNode(r[1]));
+        row.appendChild(k);row.appendChild(d);w.appendChild(row);n++;
+      });
+      out.appendChild(w);
+    });
+  });
+  if(!n)out.appendChild(el("div","none","Tidak ada hasil untuk \""+q.value+"\". Coba kata lain."));
+}
+function drawTabs(){
+  tabs.textContent="";
+  T.forEach(function(t){
+    var b=el("button",null,t.n);b.type="button";b.style.setProperty("--c",t.c);
+    b.setAttribute("aria-pressed",String(t.id===cur&&!q.value.trim()));
+    b.onclick=function(){cur=t.id;q.value="";drawTabs();render()};
+    tabs.appendChild(b);
+  });
+}
+q.addEventListener("input",function(){drawTabs();render()});
+drawTabs();render();
+</script>
+</body>
+</html>
